@@ -117,32 +117,32 @@ while running:
 
     if player.rect.colliderect(queueDoor):
          level_result = run_level1()
-         player.rect.y = 400
-         player.rect.x = 600
+         player.rect.y = 300
+         player.rect.x = 550
          if level_result == 1:
              levels_completed[0] = True
          print("Level result:", level_result) 
 
     if player.rect.colliderect(bubbleDoor):
             level_result = run_level1()
-            player.rect.y = 400
-            player.rect.x = 600
+            player.rect.y = 300
+            player.rect.x = 550
             if level_result == 1:
                 levels_completed[1] = True
             print("Level result:", level_result)
 
     if player.rect.colliderect(nodeDoor):
             level_result = run_level1()
-            player.rect.y = 400
-            player.rect.x = 600
+            player.rect.y = 300
+            player.rect.x = 550
             if level_result == 1:
                 levels_completed[2] = True
             print("Level result:", level_result)
 
     if player.rect.colliderect(edgeDoor):
             level_result = run_level1()
-            player.rect.y = 400
-            player.rect.x = 600
+            player.rect.y = 300
+            player.rect.x = 550
             if level_result == 1:
                 levels_completed[3] = True
             print("Level result:", level_result)
@@ -150,8 +150,8 @@ while running:
     if pqDoor != None:
         if player.rect.colliderect(pqDoor):
                 level_result = run_level1()
-                player.rect.y = 400
-                player.rect.x = 600
+                player.rect.y = 300
+                player.rect.x = 550
                 if level_result == 1:
                     levels_completed[4] = True
                 print("Level result:", level_result)
@@ -159,8 +159,8 @@ while running:
     if graphDoor != None:
         if player.rect.colliderect(graphDoor):
                 level_result = run_level1()
-                player.rect.y = 400
-                player.rect.x = 600
+                player.rect.y = 300
+                player.rect.x = 550
                 if level_result == 1:
                     levels_completed[5] = True
                 print("Level result:", level_result)
@@ -168,8 +168,8 @@ while running:
     if bfsDoor != None:
         if player.rect.colliderect(bfsDoor):
                 level_result = run_level1()
-                player.rect.y = 400
-                player.rect.x = 600
+                player.rect.y = 300
+                player.rect.x = 550
                 if level_result == 1:
                     levels_completed[6] = True
                 print("Level result:", level_result)
@@ -177,8 +177,8 @@ while running:
     if dijkstraDoor != None:               
         if player.rect.colliderect(dijkstraDoor):
                 level_result = run_level1()
-                player.rect.y = 400
-                player.rect.x = 600
+                player.rect.y = 300
+                player.rect.x = 550
                 if level_result == 1:
                     levels_completed[7] = True
                 print("Level result:", level_result)
