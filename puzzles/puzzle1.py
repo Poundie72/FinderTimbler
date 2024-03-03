@@ -1,20 +1,16 @@
 import pygame
-from levels.npc import NPC
 from player import Player
-from puzzles.puzzle1 import Puzzle1
+
 
 # pygame setup
 
-def run_level1(screen, player, clock, running, dt):
-    background_image = pygame.image.load("resources/puzzTest.jpg")
-    screen.blit(background_image, (0, 0))  # Blit the map image onto the screen
-    tutorial = pygame.image.load("resources/fire.jpeg")  # Load the tutorial image
+def run_puzzle1(screen, player, clock, running, dt):
+    tutorial_image = pygame.image.load("resources/tutorial_queue.jpeg")
+    screen.blit(tutorial_image, (0, 0))  # Blit the map image onto the screen
+    keys = pygame.key.get_pressed()
 
-    #npc = NPC("resources/algore.jpeg", screen, "Hello, my name is Al Gore Rhythm. I am here to explain the game to you. Would you like to learn about Queues?", tutorial)
-    #font = pygame.font.Font(None, 36)
-    #puzzle = Puzzle1(screen, font)
-
-    player_pos = pygame.Vector2(screen.get_width() / 2, screen.get_height() / 2)
+    #player = player
+    #player_pos = pygame.Vector2(screen.get_width() / 2, screen.get_height() / 2)
 
     
     #dialogue_finished = False
@@ -25,36 +21,43 @@ def run_level1(screen, player, clock, running, dt):
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
+            
+        
+        if keys[pygame.K_SPACE]:  # Replace with the key you want to use
+            puzzle_image = pygame.image.load("resources/puzzTest.jpg") 
+            screen.blit(puzzle_image, (0, 0))
+
+        if keys[pygame.K_1]:
+            font = pygame.font.Font(None, 36) 
+            text = font.render("WRONG!!", True, (255, 0, 0))  # Create a surface with the text
+            screen.blit(text, (0, 600))  # Draw the text to the screen at position (100, 100)
+        if keys[pygame.K_2]:
+            return int(0)
+        if keys[pygame.K_3]: #correct answer
+            return int(1)
+        if keys[pygame.K_4]:
+            return int(0)
+
                 
-        screen.blit(background_image, (0, 0))
-        image = pygame.image.load("resources/alGoreRhythm.jpeg")
-        screen.blit(image, (640, 200))
-        goreLoc = pygame.Rect(640, 200, 128, 128)
+        #screen.blit(puzzle_image, (0, 0))
+        #image = pygame.image.load("resources/alGoreRhythm.jpeg")
+        #screen.blit(image, (640, 200))
+        #goreLoc = pygame.Rect(640, 200, 128, 128)
 
-        if player.rect.colliderect(goreLoc):
-            puzzle_result = run_puzzle1
+       
 
 
-        if player.rect.colliderect(npc.rect):
-            print("Collision detected")
-            npc.draw_dialogue()
-            keys = pygame.key.get_pressed()  # Get the current state of the keys
-            if keys[pygame.K_1]:
-                print("1 key pressed")
-                npc.tutorial_active = True
-            elif keys[pygame.K_0]:
-                print("0 key pressed")
-                npc.tutorial_active = False
+   
                             
 
             # If the player interacts with the NPC, start the dialogue
 
         keys = pygame.key.get_pressed()
-        player.update(dt, keys)
-        screen.blit(player.image, player.rect)
+        #player.update(dt, keys)
+        #screen.blit(player.image, player.rect)
         
 
-        screen.blit(npc.image, npc.rect)
+        #screen.blit(npc.image, npc.rect)
 
                         
         #screen.blit(player_image, player_pos)
@@ -72,10 +75,10 @@ def run_level1(screen, player, clock, running, dt):
         pygame.draw.rect(screen, border_color, pygame.Rect((0, 0), window_size), border_thickness)
 
 
-        keys = pygame.key.get_pressed()
+        
 
 
-        screen.blit(npc.image, npc.rect)
+        #screen.blit(npc.image, npc.rect)
         
         # After drawing everything, flip the display
         pygame.display.flip()
