@@ -65,6 +65,25 @@ def dijkstra_fight(screen, player, clock, running, dt):
                 player.rect.x -= 450
             elif player.rect.x < 640:
                 player.rect.x += 450
+            #pygame.time.delay(2000)  # Delay for 7 seconds
+
+            
+            pygame.display.flip()
+            pygame.time.delay(1000)  # Delay for 10 seconds
+            screen.fill((0, 0, 0))  # Fill the screen with black to remove the text
+            pygame.display.flip()
+            player = player
+        
+  
+        if player.rect.colliderect(boss_hitbox) and threat == True:
+            text2 = font.render("GET GOT!!!", True, (255, 0, 0))
+            text_rect2 = text.get_rect(center=(screen.get_width() / 2 - 200, screen.get_height() / 2 + 50))
+            screen.blit(text2, text_rect2)
+            player = player
+            if player.rect.x > 640:
+                player.rect.x -= 450
+            elif player.rect.x < 640:
+                player.rect.x += 450
             player = player
             #pygame.time.delay(2000)  # Delay for 7 seconds
 
