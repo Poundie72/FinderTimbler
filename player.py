@@ -12,7 +12,7 @@ class Player(pygame.sprite.Sprite):
         self.speed = 300
 
     def update(self, dt, keys):
-        if keys[pygame.K_w] and self.rect.y > 50:
+        if keys[pygame.K_w] and self.rect.y > 20:
             self.rect.y -= self.speed * dt
         if keys[pygame.K_s] and self.rect.y < self.screen.get_height() - 50:
             self.rect.y += self.speed * dt
