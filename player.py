@@ -6,7 +6,7 @@ def create_frames_from_sheet(sheet, sprite_width, sprite_height):
         for x in range(0, sheet_width, sprite_width):
             rect = pygame.Rect(x, y, sprite_width, sprite_height)
             frames.append(sheet.subsurface(rect))
-    return frames
+    return frames[:8]
 
 class Player(pygame.sprite.Sprite):
     def __init__(self, image_paths, screen):
