@@ -9,10 +9,16 @@ screen = pygame.display.set_mode((1280, 720))
 clock = pygame.time.Clock()
 running = True
 dt = 0
+image_paths = {
+    'up': 'resources\DrFinderBack.png',
+    'down': 'resources\DrFinderFront.png',
+    'left': 'resources\DrFinderLeft.png',
+    'right': 'resources\DrFinderSide.png',
+}
 
 
 
-player = Player("resources/testImg.jpeg", screen)
+player = Player(image_paths, screen)
 
 while running:
     # poll for events
@@ -117,7 +123,7 @@ while running:
     #enter door-collision detection
 
     if player.rect.colliderect(queueDoor):
-         level_result = run_level1(screen, player, clock, running, dt)
+         level_result = run_level1(screen, player, clock, running, dt, image_paths)
          player.rect.y = 300
          player.rect.x = 550
          if level_result == 1:
@@ -183,8 +189,6 @@ while running:
                 if level_result == 1:
                     levels_completed[7] = True
                 print("Level result:", level_result)
-
-
 
 
     # Get the size of the window

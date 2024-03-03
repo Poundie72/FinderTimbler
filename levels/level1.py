@@ -1,16 +1,24 @@
 import pygame
 #from levels.npc import NPC
-from player import Player
+from player import create_frames_from_sheet, Player
 #from puzzles.puzzle1 import Puzzle1
 
 # pygame setup
 
-def run_level1(screen, player, clock, running, dt):
+
+def run_level1(screen, player, clock, running, dt, image_paths):
     background_image = pygame.image.load("resources/undamaged.jpeg")
     screen.blit(background_image, (0, 0))  # Blit the map image onto the screen
     tutorial = pygame.image.load("resources/fire.jpeg")  # Load the tutorial image
     tutorial_complete = 0
     level_num = 1
+    
+    # Load the sprite sheet
+    image_sheet = pygame.image.load("resources/alGoreRhythm.png")
+    frames = create_frames_from_sheet(image_sheet, 64, 64)
+    current_frame = 0
+    frame_time = 0.1  # Change frames every 0.1 seconds
+    accumulated_time = 0
 
     #npc = NPC("resources/algore.jpeg", screen, "Hello, my name is Al Gore Rhythm. I am here to explain the game to you. Would you like to learn about Queues?", tutorial)
     #font = pygame.font.Font(None, 36)
@@ -18,7 +26,7 @@ def run_level1(screen, player, clock, running, dt):
 
     player_pos = pygame.Vector2(screen.get_width() / 2, 600)
 
-    player = Player("resources/testImg.jpeg", screen)
+    player = Player(image_paths, screen)
     player.rect.y = 600
     #dialogue_finished = False
     while running:
@@ -30,8 +38,7 @@ def run_level1(screen, player, clock, running, dt):
                 running = False
                 
         screen.blit(background_image, (0, 0))
-        image = pygame.image.load("resources/alGoreRhythm.png")
-        screen.blit(image, (550, 100))
+        screen.blit(frames[current_frame], (550, 100))        
         goreLoc = pygame.Rect(640, 200, 128, 128)
 
         if player.rect.colliderect(goreLoc) and tutorial_complete == 0:
@@ -93,5 +100,10 @@ def run_level1(screen, player, clock, running, dt):
         pygame.display.flip()
         
         dt = clock.tick(60) / 1000
+        accumulated_time += dt
+
+        if accumulated_time > frame_time:
+            accumulated_time -= frame_time
+            current_frame = (current_frame + 1) % len(frames)  # Cycle through the frames
 
     return int(1)
