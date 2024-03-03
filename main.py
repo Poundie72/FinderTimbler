@@ -1,7 +1,7 @@
 # Example file showing a circle moving on screen
 import pygame
 from player import Player
-from levels.test import main as run_level1
+from levels.level1 import run_level1
 
 # pygame setup
 pygame.init()
@@ -9,6 +9,7 @@ screen = pygame.display.set_mode((1280, 720))
 clock = pygame.time.Clock()
 running = True
 dt = 0
+
 
 
 player = Player("resources/testImg.jpeg", screen)
