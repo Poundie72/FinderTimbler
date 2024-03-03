@@ -1,7 +1,7 @@
 # Example file showing a circle moving on screen
 import pygame
 from player import Player
-from levels.level1 import run_level1
+from levels.testlevel1 import run_level1
 
 # pygame setup
 pygame.init()
@@ -117,7 +117,7 @@ while running:
     #enter door-collision detection
 
     if player.rect.colliderect(queueDoor):
-         level_result = run_level1()
+         level_result = run_level1(screen, player, clock, running, dt,)
          player.rect.y = 300
          player.rect.x = 550
          if level_result == 1:
