@@ -9,16 +9,9 @@ screen = pygame.display.set_mode((1280, 720))
 clock = pygame.time.Clock()
 running = True
 dt = 0
-image_paths = {
-    'up': 'resources\DrFinderBack.png',
-    'down': 'resources\DrFinderFront.png',
-    'left': 'resources\DrFinderLeft.png',
-    'right': 'resources\DrFinderSide.png',
-}
-
-
-
-player = Player(image_paths, screen)
+numcompleted = 0
+levels_completed = [False] * 8
+player = Player("resources/testImg.jpeg", screen)
 
 while running:
     # poll for events
@@ -37,11 +30,12 @@ while running:
                 #6-graphDoor = pygame.Rect(1190, 300, 190, 240)
                 #7-bfsDoor = pygame.Rect(520, 20, 220, 140)
                 #8-dijkstraDoor = pygame.Rect(560, 560, 130, 130)
-    levels_completed = [False] * 8
-    numcompleted = 0
-    for level in levels_completed:
-        if level == True:
-            numcompleted += 1
+    
+    #levels_completed[1] = True
+    #alevels_completed[1] = True
+
+    #print("completed result:", numcompleted)
+    
 
     if numcompleted > 6:
         background_image = pygame.image.load("resources/allDoorsOpen.jpeg")
@@ -63,7 +57,7 @@ while running:
         graphDoor = pygame.Rect(1190, 300, 190, 240)
         bfsDoor = pygame.Rect(520, 20, 220, 140)
         dijkstraDoor = None
-    elif numcompleted == 5:
+    elif levels_completed[0] and levels_completed[1] and levels_completed[2] and levels_completed[3]:
         background_image = pygame.image.load("resources/2.jpeg")
         queueDoor = pygame.Rect(150, 90, 180, 170)
         bubbleDoor = pygame.Rect(180, 610, 230, 110)
@@ -73,7 +67,8 @@ while running:
         graphDoor = pygame.Rect(1190, 300, 190, 240)
         bfsDoor = None
         dijkstraDoor = None
-    elif levels_completed[0] and levels_completed[1] and (levels_completed[2] == 0 or levels_completed[3] == 0):
+    elif levels_completed[0] and levels_completed[1] and numcompleted < 5:
+        print("here")
         background_image = pygame.image.load("resources/1b.jpeg")
         queueDoor = pygame.Rect(150, 90, 180, 170)
         bubbleDoor = pygame.Rect(180, 610, 230, 110)
@@ -123,12 +118,18 @@ while running:
     #enter door-collision detection
 
     if player.rect.colliderect(queueDoor):
-         level_result = run_level1(screen, player, clock, running, dt, image_paths)
-         player.rect.y = 300
-         player.rect.x = 550
-         if level_result == 1:
+        level_result = run_level1(screen, player, clock, running, dt)
+        player.rect.y = 300
+        player.rect.x = 550
+        if level_result == 1:
              levels_completed[0] = True
-         print("Level result:", level_result) 
+        numcompleted = 0
+        for level in levels_completed:
+            if level == True:
+                numcompleted += 1
+        
+        
+        print("completed result:", numcompleted) 
 
     if player.rect.colliderect(bubbleDoor):
             level_result = run_level1(screen, player, clock, running, dt)
@@ -136,6 +137,10 @@ while running:
             player.rect.x = 550
             if level_result == 1:
                 levels_completed[1] = True
+            numcompleted = 0
+            for level in levels_completed:
+                if level == True:
+                    numcompleted += 1
             print("Level result:", level_result)
 
     if player.rect.colliderect(nodeDoor):
@@ -144,6 +149,10 @@ while running:
             player.rect.x = 550
             if level_result == 1:
                 levels_completed[2] = True
+            numcompleted = 0
+            for level in levels_completed:
+                if level == True:
+                    numcompleted += 1
             print("Level result:", level_result)
 
     if player.rect.colliderect(edgeDoor):
@@ -152,6 +161,10 @@ while running:
             player.rect.x = 550
             if level_result == 1:
                 levels_completed[3] = True
+            numcompleted = 0
+            for level in levels_completed:
+                if level == True:
+                    numcompleted += 1
             print("Level result:", level_result)
 
     if pqDoor != None:
@@ -161,6 +174,10 @@ while running:
                 player.rect.x = 550
                 if level_result == 1:
                     levels_completed[4] = True
+                numcompleted = 0
+                for level in levels_completed:
+                    if level == True:
+                        numcompleted += 1
                 print("Level result:", level_result)
 
     if graphDoor != None:
@@ -170,6 +187,10 @@ while running:
                 player.rect.x = 550
                 if level_result == 1:
                     levels_completed[5] = True
+                numcompleted = 0
+                for level in levels_completed:
+                    if level == True:
+                        numcompleted += 1
                 print("Level result:", level_result)
 
     if bfsDoor != None:
@@ -179,6 +200,10 @@ while running:
                 player.rect.x = 550
                 if level_result == 1:
                     levels_completed[6] = True
+                numcompleted = 0
+                for level in levels_completed:
+                    if level == True:
+                        numcompleted += 1
                 print("Level result:", level_result)
 
     if dijkstraDoor != None:               
@@ -188,8 +213,75 @@ while running:
                 player.rect.x = 550
                 if level_result == 1:
                     levels_completed[7] = True
+                numcompleted = 0
+                for level in levels_completed:
+                    if level == True:
+                        numcompleted += 1
                 print("Level result:", level_result)
-
+   
+    
+    if numcompleted > 6:
+        background_image = pygame.image.load("resources/allDoorsOpen.jpeg")
+        queueDoor = pygame.Rect(150, 90, 180, 170)
+        bubbleDoor = pygame.Rect(180, 610, 230, 110)
+        nodeDoor = pygame.Rect(820, 610, 230, 110)
+        edgeDoor = pygame.Rect(940, 90, 210, 170)
+        pqDoor  = pygame.Rect(0, 300, 100, 230)
+        graphDoor = pygame.Rect(1190, 300, 190, 240)
+        bfsDoor = pygame.Rect(520, 20, 220, 140)
+        dijkstraDoor = pygame.Rect(560, 560, 130, 130)
+    elif numcompleted == 6:
+        background_image = pygame.image.load("resources/3.jpeg")
+        queueDoor = pygame.Rect(150, 90, 180, 170)
+        bubbleDoor = pygame.Rect(180, 610, 230, 110)
+        nodeDoor = pygame.Rect(820, 610, 230, 110)
+        edgeDoor = pygame.Rect(940, 90, 210, 170)
+        pqDoor  = pygame.Rect(0, 300, 100, 230)
+        graphDoor = pygame.Rect(1190, 300, 190, 240)
+        bfsDoor = pygame.Rect(520, 20, 220, 140)
+        dijkstraDoor = None
+    elif levels_completed[0] and levels_completed[1] and levels_completed[2] and levels_completed[3]:
+        background_image = pygame.image.load("resources/2.jpeg")
+        queueDoor = pygame.Rect(150, 90, 180, 170)
+        bubbleDoor = pygame.Rect(180, 610, 230, 110)
+        nodeDoor = pygame.Rect(820, 610, 230, 110)
+        edgeDoor = pygame.Rect(940, 90, 210, 170)
+        pqDoor  = pygame.Rect(0, 300, 100, 230)
+        graphDoor = pygame.Rect(1190, 300, 190, 240)
+        bfsDoor = None
+        dijkstraDoor = None
+    elif levels_completed[0] and levels_completed[1] and numcompleted < 5:
+        print("here")
+        background_image = pygame.image.load("resources/1b.jpeg")
+        queueDoor = pygame.Rect(150, 90, 180, 170)
+        bubbleDoor = pygame.Rect(180, 610, 230, 110)
+        nodeDoor = pygame.Rect(820, 610, 230, 110)
+        edgeDoor = pygame.Rect(940, 90, 210, 170)
+        pqDoor  = pygame.Rect(0, 300, 100, 230)
+        bfsDoor = None
+        dijkstraDoor = None
+    elif levels_completed[2] and levels_completed[3] and (levels_completed[0] == 0 or levels_completed[1] == 0):
+        background_image = pygame.image.load("resources/1a.jpeg")
+        queueDoor = pygame.Rect(150, 90, 180, 170)
+        bubbleDoor = pygame.Rect(180, 610, 230, 110)
+        nodeDoor = pygame.Rect(820, 610, 230, 110)
+        edgeDoor = pygame.Rect(940, 90, 210, 170)
+        graphDoor = pygame.Rect(1190, 300, 190, 240)
+        pqDoor  = None
+        bfsDoor = None
+        dijkstraDoor = None
+    else:
+        background_image = pygame.image.load("resources/0_begin.jpeg")
+        queueDoor = pygame.Rect(150, 90, 180, 170)
+        bubbleDoor = pygame.Rect(180, 610, 230, 110)
+        nodeDoor = pygame.Rect(820, 610, 230, 110)
+        edgeDoor = pygame.Rect(940, 90, 210, 170)
+        pqDoor  = None
+        graphDoor = None
+        bfsDoor = None
+        dijkstraDoor = None
+    
+    screen.blit(background_image, (0, 0))
 
     # Get the size of the window
     window_width, window_height = screen.get_size()
