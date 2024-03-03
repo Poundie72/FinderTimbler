@@ -16,9 +16,10 @@ def run_level1(screen, player, clock, running, dt):
     #font = pygame.font.Font(None, 36)
     #puzzle = Puzzle1(screen, font)
 
-    player_pos = pygame.Vector2(screen.get_width() / 2, screen.get_height() / 2)
+    player_pos = pygame.Vector2(screen.get_width() / 2, 600)
 
     player = Player("resources/testImg.jpeg", screen)
+    player.rect.y = 600
     #dialogue_finished = False
     while running:
         # poll for events
@@ -34,16 +35,16 @@ def run_level1(screen, player, clock, running, dt):
         goreLoc = pygame.Rect(640, 200, 128, 128)
 
         if player.rect.colliderect(goreLoc) and tutorial_complete == 0:
-            font = pygame.font.Font(None, 36)  # Create a font object
+            font = pygame.font.Font(None, 36) 
             text = font.render("Hello! Would you like to learn about queues? Type 1 for yes and 0 for no", True, (255, 255, 255))  # Create a surface with the text
-            screen.blit(text, (100, 100))  # Draw the text to the screen at position (100, 100)
+            screen.blit(text, (100, 600))  # Draw the text to the screen at position (100, 100)
             for event in pygame.event.get():
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_1:
                         tutorial_complete = 1
                         return 1
                     if event.key == pygame.K_0:
-                        player.rect.y -= 100
+                        player.rect.y += 100
 
         if player.rect.colliderect(goreLoc) and tutorial_complete == 1:
             font = pygame.font.Font(None, 36)  # Create a font object
@@ -53,7 +54,7 @@ def run_level1(screen, player, clock, running, dt):
                 if event.key == pygame.K_1:
                     return 1
                 if event.key == pygame.K_0:
-                    player.rect.y -= 100
+                    player.rect.y += 100
 
 
                             
