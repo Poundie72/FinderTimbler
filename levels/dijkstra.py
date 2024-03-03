@@ -1,4 +1,5 @@
 import pygame
+import random
 #from levels.npc import NPC
 from player import create_frames_from_sheet, Player
 #from puzzles.puzzle1 import Puzzle1
@@ -7,45 +8,25 @@ from player import create_frames_from_sheet, Player
 
 
 def dijkstra_fight(screen, player, clock, running, dt):
-    background_image = pygame.image.load("resources/undamaged.jpeg")
+    background_image = pygame.image.load("resources/Djikstrarena.png")
     screen.blit(background_image, (0, 0))  # Blit the map image onto the screen
-    tutorial = pygame.image.load("resources/fire.jpeg")  # Load the tutorial image
-    tutorial_complete = 0
     level_num = 1
+    boss_image = pygame.image.load("resources\Djikstra.png")
     
-
-
-    # Boss setup
-    boss_image = pygame.image.load("resources/.png")
-    boss_rect = boss_image.get_rect()
-    boss_pos = pygame.Vector2(screen.get_width() / 2, 200)
-    boss_speed = 5
-    boss_direction = 1  # 1 for moving right, -1 for moving left
-
-    while running:
-        # ...
-
-        # Update boss position
-        boss_pos.x += boss_speed * boss_direction
-
-        # Check if boss hits the screen edges
-        if boss_pos.x <= 0 or boss_pos.x >= screen.get_width() - boss_rect.width:
-            boss_direction *= -1  # Reverse direction
-
-        # Draw boss on screen
-        screen.blit(boss_image, boss_pos)
-
-        # ...
-
-        pygame.display.flip()
-
-        # ...
-
+    boss_direction_x = 0  # 1 is right, -1 is left, starts standing still
+    boss_direction_y = 0 #random.choice([-1, 1])  # Randomly choose up or down
+    
+    boss_image_rect = boss_image.get_rect(center=(boss_image.get_width()/2, boss_image.get_height()/2))
+    hitbox_width = boss_image_rect.width * 0.5  # Adjust as needed
+    hitbox_height = boss_image_rect.height * 0.25  # Adjust as needed
+    boss_hitbox = pygame.Rect(0, 0, hitbox_width, hitbox_height)
+    boss_hitbox.center = boss_image_rect.center
+    threat = False
+    
     #npc = NPC("resources/algore.jpeg", screen, "Hello, my name is Al Gore Rhythm. I am here to explain the game to you. Would you like to learn about Queues?", tutorial)
     #font = pygame.font.Font(None, 36)
-    #puzzle = Puzzle1(screen, font)
-
-    player_pos = pygame.Vector2(screen.get_width() / 2, 600)
+    #puzzle = Puzzle1(screen, font)\
+    #player_pos = pygame.Vector2(screen.get_width() / 2, 600)
 
     player.rect.y = 600
     #dialogue_finished = False
@@ -57,34 +38,29 @@ def dijkstra_fight(screen, player, clock, running, dt):
             if event.type == pygame.QUIT:
                 running = False
                 
-        screen.blit(background_image, (0, 0))
-        screen.blit(frames[current_frame], (550, 100))        
-        goreLoc = pygame.Rect(640, 200, 128, 128)
+        screen.blit(background_image, (0, 0))   
+        if (boss_image_rect.right >= screen.get_width()) & threat == True:
+            boss_direction_x = -1
+        elif (boss_image_rect.left <= 0) & threat == True:
+            boss_direction_x = 1
 
-        if player.rect.colliderect(goreLoc) and tutorial_complete == 0:
-            font = pygame.font.Font(None, 36) 
-            text = font.render("Hello! Would you like to learn about queues? Type 1 for yes and 0 for no", True, (255, 255, 255))  # Create a surface with the text
-            screen.blit(text, (100, 600))  # Draw the text to the screen at position (100, 100)
-            for event in pygame.event.get():
-                if event.type == pygame.KEYDOWN:
-                    if event.key == pygame.K_1:
-                        tutorial_complete = 1
-                        return 1
-                    if event.key == pygame.K_0:
-                        player.rect.y += 100
+        if (boss_image_rect.bottom >= screen.get_height()) & threat == True:
+            boss_direction_y = -1
+        elif (boss_image_rect.top <= 0) & threat == True:
+            boss_direction_y = 1
 
-        if player.rect.colliderect(goreLoc) and tutorial_complete == 1:
-            font = pygame.font.Font(None, 36)  # Create a font object
-            text = font.render("You wanna learn about queues again? Type 1 for yes and 0 for no", True, (255, 255, 255))  # Create a surface with the text
-            screen.blit(text, (100, 100))  # Draw the text to the screen at position (100, 100)
-            if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_1:
-                    return 1
-                if event.key == pygame.K_0:
-                    player.rect.y += 100
+        # Move the boss around
+        boss_image_rect.x += 5 * boss_direction_x
+        boss_image_rect.y += 5 * boss_direction_y  # Adjust the value as needed
+        boss_hitbox.center = (boss_image_rect.centerx, boss_image_rect.centery + 50)  # Adjust as needed
+
+        screen.blit(boss_image, boss_hitbox)
+        pygame.draw.rect(screen, (255, 0, 0), boss_hitbox, 2)  # Draw a red border around the hitbox
 
 
-                            
+        if player.rect.colliderect(boss_hitbox):
+            return 1
+        
 
             # If the player interacts with the NPC, start the dialogue
 
@@ -120,10 +96,13 @@ def dijkstra_fight(screen, player, clock, running, dt):
         pygame.display.flip()
         
         dt = clock.tick(60) / 1000
-        accumulated_time += dt
+       # accumulated_time += dt
 
-        if accumulated_time > frame_time:
-            accumulated_time -= frame_time
-            current_frame = (current_frame + 1) % len(frames)  # Cycle through the frames
+       # if accumulated_time > frame_time:
+        #    accumulated_time -= frame_time
+         #   current_frame = (current_frame + 1) % len(frames)  # Cycle through the frames
 
     return int(1)
+
+
+

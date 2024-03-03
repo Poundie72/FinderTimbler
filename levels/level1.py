@@ -2,11 +2,13 @@ import pygame
 #from levels.npc import NPC
 from player import Player
 from puzzles.puzzle1 import run_puzzle1
+from  player import create_frames_from_sheet, Player
+
 
 # pygame setup
 
 
-def run_level1(screen, player, clock, running, dt, image_paths):
+def run_level1(screen, player, clock, running, dt):
     background_image = pygame.image.load("resources/undamaged.jpeg")
     screen.blit(background_image, (0, 0))  # Blit the map image onto the screen
     section_complete = 0
@@ -25,8 +27,6 @@ def run_level1(screen, player, clock, running, dt, image_paths):
 
     player_pos = pygame.Vector2(screen.get_width() / 2, 600)
 
-    player = player
-    #Player("resources/testImg.jpeg", screen)
     player.rect.y = 600
     player.rect.x = 150
     #dialogue_finished = False

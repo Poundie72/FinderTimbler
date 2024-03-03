@@ -2,6 +2,8 @@
 import pygame
 from player import Player
 from levels.level1 import run_level1
+from levels.dijkstra import dijkstra_fight
+
 
 # pygame setup
 pygame.init()
@@ -11,7 +13,15 @@ running = True
 dt = 0
 numcompleted = 0
 levels_completed = [False] * 8
-player = Player("resources/testImg.jpeg", screen)
+image_paths = {
+    'up': 'resources\DrFinderBack.png',
+    'down': 'resources\DrFinderFront.png',
+    'left': 'resources\DrFinderLeft.png',
+    'right': 'resources\DrFinderSide.png',
+}
+
+player = Player(image_paths, screen)
+
 
 while running:
     # poll for events
@@ -97,6 +107,8 @@ while running:
         graphDoor = None
         bfsDoor = None
         dijkstraDoor = None
+        
+
 
 
 
@@ -132,7 +144,7 @@ while running:
         print("completed result:", numcompleted) 
 
     if player.rect.colliderect(bubbleDoor):
-            level_result = run_level1(screen, player, clock, running, dt)
+            level_result = dijkstra_fight(screen, player, clock, running, dt)
             player.rect.y = 300
             player.rect.x = 550
             if level_result == 1:
@@ -208,7 +220,7 @@ while running:
 
     if dijkstraDoor != None:               
         if player.rect.colliderect(dijkstraDoor):
-                level_result = run_level1(screen, player, clock, running, dt)
+                level_result = dijkstra_fight(screen, player, clock, running, dt)
                 player.rect.y = 300
                 player.rect.x = 550
                 if level_result == 1:
@@ -290,10 +302,11 @@ while running:
     # Draw the player as a 128px square
     #player_image = pygame.image.load("resources/algore.jpeg")
     #screen.blit(player_image, player_pos)
-    
     keys = pygame.key.get_pressed()
     player.update(dt, keys)
     player.draw(screen)
+    
+
     
     # Commenting the chunk of code
 
