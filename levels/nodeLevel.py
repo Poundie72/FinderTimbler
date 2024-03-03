@@ -16,7 +16,7 @@ def run_nodeLevel(screen, player, clock, running, dt):
     
     # Load the sprite sheet
     image_sheet = pygame.image.load("resources/AlGoreRythym.png")
-    frames = create_frames_from_sheet(image_sheet, 64, 64)
+    frames = create_frames_from_sheet(image_sheet, 128, 128, 8)
     current_frame = 0
     frame_time = 0.1  # Change frames every 0.1 seconds
     accumulated_time = 0

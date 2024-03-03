@@ -1,0 +1,54 @@
+[33mcommit 5091d59e891dabf639b96acf00dbcb2b9b10cab4[m[33m ([m[1;36mHEAD -> [m[1;32mben[m[33m, [m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;32mmain[m[33m)[m
+Merge: 8b405b2 8c7f764
+Author: Benjamin Booker <bebo4432@colorado.edu>
+Date:   Sat Mar 2 20:03:00 2024 -0700
+
+    Merge branch 'ben'
+
+[33mcommit 8c7f76480b6c67533dc74219e1e47efda6c15293[m
+Author: Benjamin Booker <bebo4432@colorado.edu>
+Date:   Sat Mar 2 20:00:25 2024 -0700
+
+    Player class working, level 1 ready for testing
+
+[33mcommit 8b405b2222a3c174e6149ba34a47c09ed867128b[m
+Author: Jake Zellmer <jzcatclaw@gmail.com>
+Date:   Sat Mar 2 19:44:01 2024 -0700
+
+    Al... Gore... Rythym!
+
+[33mcommit 168e7449f09beb363d6880d9628862ebcf305f98[m
+Author: Poundie72 <ddavispounders@gmail.com>
+Date:   Sat Mar 2 19:28:57 2024 -0700
+
+    cali resources added
+
+[33mcommit 7de02ebef8317c973b015b622512876e2c037952[m
+Author: Poundie72 <ddavispounders@gmail.com>
+Date:   Sat Mar 2 19:27:35 2024 -0700
+
+    update 1
+
+[33mcommit 617d0cd49cf6e9102ab2fcfe71f5481b499bbbf4[m
+Author: Poundie72 <ddavispounders@gmail.com>
+Date:   Sat Mar 2 16:39:19 2024 -0700
+
+    borders, doors, and gores
+
+[33mcommit add258d607a3981807d60c0da69c6a5ed4eba6ce[m
+Author: Poundie72 <ddavispounders@gmail.com>
+Date:   Sat Mar 2 15:54:39 2024 -0700
+
+    add base game
+
+[33mcommit 13858c0f890b9b1c5797c338c84a276eadb0f351[m
+Author: Poundie72 <ddavispounders@gmail.com>
+Date:   Sat Mar 2 15:49:36 2024 -0700
+
+    file structure;
+
+[33mcommit 3a63688d9ee616e6d93dbda265c37a03004b10c1[m
+Author: Poundie72 <119374813+Poundie72@users.noreply.github.com>
+Date:   Sat Mar 2 15:44:37 2024 -0700
+
+    Initial commit

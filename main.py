@@ -1,6 +1,6 @@
 # Example file showing a circle moving on screen
 import pygame
-from player import Player
+from player import Player, create_frames_from_sheet
 from levels.level1 import run_level1
 from levels.dijkstra import dijkstra_fight
 from levels.nodeLevel import run_nodeLevel
@@ -14,14 +14,23 @@ running = True
 dt = 0
 numcompleted = 0
 levels_completed = [False] * 8
-image_paths = {
-    'up': 'resources/DrFinderBack.png', #FinderTimbler/resources/DrFinderBack.png
-    'down': 'resources/DrFinderFront.png',
-    'left': 'resources/DrFinderLeft.png',
-    'right': 'resources/DrFinderSide.png',
-}
 
-player = Player(image_paths, screen)
+
+# Load the sprite sheets
+image_sheet_up = pygame.image.load("resources/DrFinderBack.png")
+image_sheet_down = pygame.image.load("resources/DrFinderFWalk.png")
+image_sheet_left = pygame.image.load("resources/DrFinderLWalk.png")
+image_sheet_right = pygame.image.load("resources/DrFinderSWalk.png")
+
+# Create frames from the sprite sheets
+frames_down = create_frames_from_sheet(image_sheet_down, 128, 128, 10)
+frames_left = create_frames_from_sheet(image_sheet_left, 128, 128, 6)
+frames_right = create_frames_from_sheet(image_sheet_right, 128, 128, 7)
+
+# Create the frames list
+frames_list = [image_sheet_up, frames_down, frames_left, frames_right]
+
+player = Player(frames_list, screen)
 
 
 while running:
@@ -144,7 +153,7 @@ while running:
         print("completed result:", numcompleted) 
 
     if player.rect.colliderect(bubbleDoor):
-            level_result = dijkstra_fight(screen, player, clock, running, dt)
+            level_result = run_level1(screen, player, clock, running, dt)
             player.rect.y = 300
             player.rect.x = 550
             if level_result == 1:
@@ -263,7 +272,6 @@ while running:
         bfsDoor = None
         dijkstraDoor = None
     elif levels_completed[0] and levels_completed[1] and numcompleted < 5:
-        print("here")
         background_image = pygame.image.load("resources/1b.jpeg")
         queueDoor = pygame.Rect(150, 90, 180, 170)
         bubbleDoor = pygame.Rect(180, 610, 230, 110)
@@ -304,6 +312,7 @@ while running:
     #screen.blit(player_image, player_pos)
     keys = pygame.key.get_pressed()
     player.update(dt, keys)
+    
     player.draw(screen)
     
 
