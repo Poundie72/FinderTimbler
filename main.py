@@ -138,6 +138,7 @@ while running:
 
     #enter door-collision detection
 
+
     if player.rect.colliderect(queueDoor):
         level_result = run_level1(screen, player, clock, running, dt)
         player.rect.y = 300

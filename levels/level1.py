@@ -1,7 +1,7 @@
 import pygame
 #from levels.npc import NPC
 from puzzles.puzzle1 import run_puzzle1
-from  player import create_frames_from_sheet, Player
+from player import create_frames_from_sheet, Player
 
 
 # pygame setup
