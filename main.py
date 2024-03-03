@@ -18,7 +18,9 @@ while running:
             running = False
 
     # fill the screen with a color to wipe away anything from last frame
-    screen.fill("purple")
+    background_image = pygame.image.load("resources/allDoorsOpen.jpeg")
+    screen.blit(background_image, (0, 0))
+    #screen.fill((255, 255, 255))
     # Define the color and thickness of the border
     border_color = (0, 0, 0)  # Black
     border_thickness = 10  # 10 pixels
@@ -28,34 +30,25 @@ while running:
 
     # Draw the border
     pygame.draw.rect(screen, border_color, pygame.Rect((0, 0), window_size), border_thickness)
-    # Define the color and size of the doors
-    door_color = (165, 42, 42)  # Brown
-    door_width = 50  # 50 pixels
-    door_height = 200  # 200 pixels
+
 
     # Get the size of the window
     window_width, window_height = screen.get_size()
 
-    # Calculate the positions of the doors
-    left_door_x = 0
-    right_door_x = window_width - door_width
-    side_door_y = window_height /2 - door_height /2
-    top_door_y = 0
-    bottom_door_y = window_height - door_width
-    middle_door_x = window_width /2 - door_width /2
-
-    # Draw the doors
-    pygame.draw.rect(screen, door_color, pygame.Rect((left_door_x, side_door_y), (door_width, door_height)))
-    pygame.draw.rect(screen, door_color, pygame.Rect((right_door_x, side_door_y), (door_width, door_height)))  
-    pygame.draw.rect(screen, door_color, pygame.Rect((middle_door_x, top_door_y), (door_height, door_width)))
-    pygame.draw.rect(screen, door_color, pygame.Rect((middle_door_x, bottom_door_y), (door_height, door_width)))  
+   
  
+    
+    # Draw the player as a 128px square
+    player_size = 128
+    player_color = (255, 255, 0)  # Yellow
+    player_rect = pygame.Rect(player_pos.x - player_size/2, player_pos.y - player_size/2, player_size, player_size)
+    pygame.draw.rect(screen, player_color, player_rect)
 
-    player_image = pygame.image.load("resources/algore.jpeg")
-    screen.blit(player_image, player_pos)
-
+    #player_image = pygame.image.load("resources/algore.jpeg")
+    #screen.blit(player_image, player_pos)
+    
     keys = pygame.key.get_pressed()
-    if keys[pygame.K_w] and player_pos.y > 50:
+    if keys[pygame.K_w] and player_pos.y > 50: # if pos = 50 && ,initiate level
         player_pos.y -= 300 * dt
     if keys[pygame.K_s] and player_pos.y < screen.get_height() -50:
         player_pos.y += 300 * dt
@@ -63,6 +56,15 @@ while running:
         player_pos.x -= 300 * dt
     if keys[pygame.K_d] and player_pos.x < screen.get_width() - 50:
         player_pos.x += 300 * dt
+
+    if player_pos.y == 50 and (player_pos.x > 540 and player_pos.x < 740): #Left door
+        print("Level top")
+    if player_pos.y == screen.get_height() - 50 and (player_pos.x > 540 and player_pos.x < 740): #Right door
+        print("Level bottom")
+    if player_pos.y == 50 and (player_pos.y > 10 and player_pos.y < 200): #Right door
+        print("Level left")
+    if player_pos.y == 50 and (player_pos.y > 10 and player_pos.y < 200): #Right door
+        print("Level right")
 
     # flip() the display to put your work on screen
     pygame.display.flip()
