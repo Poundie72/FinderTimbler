@@ -3,6 +3,7 @@ import pygame
 from player import Player
 from levels.level1 import run_level1
 from levels.dijkstra import dijkstra_fight
+from levels.nodeLevel import run_nodeLevel
 
 
 # pygame setup
@@ -14,10 +15,10 @@ dt = 0
 numcompleted = 0
 levels_completed = [False] * 8
 image_paths = {
-    'up': 'resources\DrFinderBack.png',
-    'down': 'resources\DrFinderFront.png',
-    'left': 'resources\DrFinderLeft.png',
-    'right': 'resources\DrFinderSide.png',
+    'up': 'resources/DrFinderBack.png', #FinderTimbler/resources/DrFinderBack.png
+    'down': 'resources/DrFinderFront.png',
+    'left': 'resources/DrFinderLeft.png',
+    'right': 'resources/DrFinderSide.png',
 }
 
 player = Player(image_paths, screen)
@@ -78,7 +79,6 @@ while running:
         bfsDoor = None
         dijkstraDoor = None
     elif levels_completed[0] and levels_completed[1] and numcompleted < 5:
-        print("here")
         background_image = pygame.image.load("resources/1b.jpeg")
         queueDoor = pygame.Rect(150, 90, 180, 170)
         bubbleDoor = pygame.Rect(180, 610, 230, 110)
@@ -156,7 +156,7 @@ while running:
             print("Level result:", level_result)
 
     if player.rect.colliderect(nodeDoor):
-            level_result = run_level1(screen, player, clock, running, dt)
+            level_result = run_nodeLevel(screen, player, clock, running, dt)
             player.rect.y = 300
             player.rect.x = 550
             if level_result == 1:

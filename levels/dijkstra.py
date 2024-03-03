@@ -11,17 +11,17 @@ def dijkstra_fight(screen, player, clock, running, dt):
     background_image = pygame.image.load("resources/Djikstrarena.png")
     screen.blit(background_image, (0, 0))  # Blit the map image onto the screen
     level_num = 1
-    boss_image = pygame.image.load("resources\Djikstra.png")
+    boss_image = pygame.image.load("resources/Djikstra.png")
     
     boss_direction_x = 0  # 1 is right, -1 is left, starts standing still
     boss_direction_y = 0 #random.choice([-1, 1])  # Randomly choose up or down
     
     boss_image_rect = boss_image.get_rect(center=(boss_image.get_width()/2, boss_image.get_height()/2))
-    hitbox_width = boss_image_rect.width * 0.5  # Adjust as needed
-    hitbox_height = boss_image_rect.height * 0.25  # Adjust as needed
+    hitbox_width = boss_image_rect.width  # Adjust as needed
+    hitbox_height = boss_image_rect.height   # Adjust as needed
     boss_hitbox = pygame.Rect(0, 0, hitbox_width, hitbox_height)
     boss_hitbox.center = boss_image_rect.center
-    threat = False
+    threat = False 
     
     #npc = NPC("resources/algore.jpeg", screen, "Hello, my name is Al Gore Rhythm. I am here to explain the game to you. Would you like to learn about Queues?", tutorial)
     #font = pygame.font.Font(None, 36)
@@ -37,7 +37,37 @@ def dijkstra_fight(screen, player, clock, running, dt):
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
-                
+        if player.rect.colliderect(boss_hitbox) and threat == False:
+            threat = True
+            player.rect.x = 800
+            player.rect.y = 500
+            font = pygame.font.Font(None, 48)
+            text = font.render("YOU DARE ENTER MY LAYER?", True, (255, 0, 0))
+            text_rect = text.get_rect(center=(screen.get_width() / 2, screen.get_height() / 2))
+            screen.blit(text, text_rect)
+            text1 = font.render("PREPARE TO TAKE THE SHORTEST PATH TO DOOM!!!", True, (255, 0, 0))
+            text_rect1 = text.get_rect(center=(screen.get_width() / 2 - 200, screen.get_height() / 2 + 50))
+            screen.blit(text1, text_rect1)
+            pygame.time.delay(7000)  # Delay for 7 seconds
+
+        #if player.rect.colliderect(boss_hitbox) and threat == True:
+         #   text2 = font.render("GET GOT!!!", True, (255, 0, 0))
+          #  text_rect2 = text.get_rect(center=(screen.get_width() / 2 - 200, screen.get_height() / 2 + 50))
+           # screen.blit(text2, text_rect2)
+            #player = player
+            #if player.rect.x > 360:
+             #   player.rect.x -= 300
+            #elif player.rect.x < 360:
+             #   player.rect.x += 300
+            #pygame.time.delay(2000)  # Delay for 7 seconds
+
+            
+            pygame.display.flip()
+            pygame.time.delay(10000)  # Delay for 10 seconds
+            screen.fill((0, 0, 0))  # Fill the screen with black to remove the text
+            pygame.display.flip()
+            player = player
+
         screen.blit(background_image, (0, 0))   
         if (boss_image_rect.right >= screen.get_width()) & threat == True:
             boss_direction_x = -1
@@ -58,8 +88,8 @@ def dijkstra_fight(screen, player, clock, running, dt):
         pygame.draw.rect(screen, (255, 0, 0), boss_hitbox, 2)  # Draw a red border around the hitbox
 
 
-        if player.rect.colliderect(boss_hitbox):
-            return 1
+        #if player.rect.colliderect(boss_hitbox):
+            #return 1
         
 
             # If the player interacts with the NPC, start the dialogue

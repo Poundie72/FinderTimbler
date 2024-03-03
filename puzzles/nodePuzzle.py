@@ -4,8 +4,8 @@ from player import Player
 
 # pygame setup
 
-def run_puzzle1(screen, player, clock, running, dt):
-    tutorial_image = pygame.image.load("resources/tutorial_queue.jpeg")
+def run_nodePuzzle(screen, player, clock, running, dt):
+    tutorial_image = pygame.image.load("resources/node_tutorial.jpg")
     screen.blit(tutorial_image, (0, 0))  # Blit the map image onto the screen
     keys = pygame.key.get_pressed()
 
@@ -24,7 +24,7 @@ def run_puzzle1(screen, player, clock, running, dt):
             
         
         if keys[pygame.K_SPACE]:  # Replace with the key you want to use
-            puzzle_image = pygame.image.load("resources/puzzle1.jpg") 
+            puzzle_image = pygame.image.load("resources/nodePuzzle.jpg") 
             screen.blit(puzzle_image, (0, 0))
 
         if keys[pygame.K_1]:
@@ -32,12 +32,12 @@ def run_puzzle1(screen, player, clock, running, dt):
             text = font.render("WRONG!!", True, (255, 0, 0))  # Create a surface with the text
             screen.blit(text, (0, 600))  # Draw the text to the screen at position (100, 100)
         if keys[pygame.K_2]:
-            return int(0)
-        if keys[pygame.K_3]: #correct answer
             return int(1)
-        if keys[pygame.K_4]:
-            return int(0)
-
+        if keys[pygame.K_3]: #correct answer
+            font = pygame.font.Font(None, 36) 
+            text = font.render("WRONG!!", True, (255, 0, 0))  # Create a surface with the text
+            screen.blit(text, (0, 600))  # Draw the text to the screen at position (100, 100)
+       
                 
         #screen.blit(puzzle_image, (0, 0))
         #image = pygame.image.load("resources/alGoreRhythm.jpeg")
